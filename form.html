@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-step Form</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-navigation {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Form (Multi-step)</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form id="multiStepForm">
+            <!-- Step 1 -->
+            <div class="form-step active" id="step-1">
+                <h2>Step 1: Personal Information</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+                <div class="form-navigation">
+                    <button type="button" id="nextStep1">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="form-step" id="step-2">
+                <h2>Step 2: Contact Information</h2>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required><br><br>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required><br><br>
+                <div class="form-navigation">
+                    <button type="button" id="prevStep2">Previous</button>
+                    <button type="button" id="nextStep2">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="form-step" id="step-3">
+                <h2>Step 3: Additional Information</h2>
+                <label for="comments">Comments:</label>
+                <textarea id="comments" name="comments"></textarea><br><br>
+                <div class="form-navigation">
+                    <button type="button" id="prevStep3">Previous</button>
+                    <button type="submit" id="submitForm">Submit</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Test Site</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('multiStepForm');
+            const steps = Array.from(document.querySelectorAll('.form-step'));
+            let currentStep = 0;
+
+            // Show the step based on currentStep index
+            function showStep(step) {
+                steps.forEach((stepEl, index) => {
+                    stepEl.classList.toggle('active', index === step);
+                });
+            }
+
+            // Next button for Step 1
+            document.getElementById('nextStep1').addEventListener('click', function() {
+                currentStep = 1;
+                showStep(currentStep);
+            });
+
+            // Previous and Next buttons for Step 2
+            document.getElementById('prevStep2').addEventListener('click', function() {
+                currentStep = 0;
+                showStep(currentStep);
+            });
+
+            document.getElementById('nextStep2').addEventListener('click', function() {
+                currentStep = 2;
+                showStep(currentStep);
+            });
+
+            // Previous button for Step 3
+            document.getElementById('prevStep3').addEventListener('click', function() {
+                currentStep = 1;
+                showStep(currentStep);
+            });
+
+            // Form submit
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('Form submitted!');
+            });
+
+        });
+    </script>
+</body>
+</html>
